@@ -12,6 +12,9 @@ nbproject
 # windows thumbnail cache
 Thumbs.db
 
+# composer vendor dir
+/vendor
+
 # composer itself is not needed
 composer.phar
 
@@ -25,17 +28,7 @@ phpunit.phar
 
 assets/*
 !assets/.gitignore
-runtime/*
-!runtime/.gitignore
-vendor/*
-!vendor/.gitignore
 protected/runtime/*
 !protected/runtime/.gitignore
 protected/data/*.db
 themes/classic/views/
-requirements.php
-composer.lock
-composer.json
-yii
-yii.bat
-
