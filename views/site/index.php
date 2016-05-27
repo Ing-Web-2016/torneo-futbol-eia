@@ -5,49 +5,32 @@
 $this->title = 'My Yii Application';
 ?>
 <div class="site-index">
-
-    <div class="jumbotron">
-        <h1>Congratulations!</h1>
-
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <hgroup class="text-center">
+    <h1 id="letra2"> TONEO DE FUTBOL EIA </h1>
+    <h2 id="letra1"> Por que no todo en la Universidad es Estudio </h2>
+</hgroup>
+</div>
+<div class="col-md-2">
+    <img class="center-block mg-rounded" src="http://localhost/torneo-futbol-eia/views/layouts/img/balon.jpeg"/>
+</div>
     </div>
 
-    <div class="body-content">
+</div>
 
-        <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
-            </div>
-        </div>
-
-    </div>
+<br><br>
+<p class="text-justify" id="letra3">Considerando la importancia del deporte en la salud y la necesidad de fomentar espacios en los que se fortalezcan los hábitos de vida saludable, la lúdica y el esparcimiento; la dependencia de Bienestar Universitario de la EIA, creo desde hace algún tiempo un torneo de futbol entre los estudiantes de la institución. <br> </p>
+<h2 id="letra1"><strong>REQUISITOS DEL TORNEO</strong> </h2>
+<ol id="letra3">
+    <li>Ser estudiante activo de la EIA</li>
+    <li>Incribirse como jugador</li>
+    <li>Tener un equipo de mínimo 6 jugadores y máximo 12</li>
+    <li>Escoger un color para el equipo</li>
+    <li>Y tener muchas ganas y energía, porque lo que se viene es indescriptible</li>
+</ol>
+<br><br>
+<iframe class="center-block" width="560" height="315" src="https://www.youtube.com/embed/y7r8JoXO1CU" frameborder="0" allowfullscreen></iframe>
+<br><br><br>
 </div>
