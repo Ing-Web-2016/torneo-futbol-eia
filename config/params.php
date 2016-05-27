@@ -1,5 +1,6 @@
 <?php
-
-return [
-    'adminEmail' => 'admin@example.com',
+return[
+'adminEmail' => '',
+'title' => 'Torneo de futbol EIA',
+'salt' => 'alepaper',
 ];

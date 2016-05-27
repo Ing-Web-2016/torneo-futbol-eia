@@ -23,6 +23,8 @@ class m160524_045532_create_tarjeta extends Migration
             'jugador_id' => $this->integer()->notNull(),
             'causa' => $this->string()->notNull(),
             'minuto' => $this->string()->notNull(),
+            'created_at' => $this->dateTime()->notNull(),
+            'updated_at' => $this->dateTime(),
         ]);
 
         // creates index for column `partido_id`

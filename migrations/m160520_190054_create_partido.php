@@ -86,22 +86,22 @@ class m160520_190054_create_partido extends Migration
 
         $this->dropForeignKey(
             'idx-partido-equipo_local_id',
-            'equipo'
+            'partido'
         );
 
         $this->dropIndex(
             'fk-partido-equipo_local_id',
-            'equipo'
+            'partido'
         );
 
         $this->dropForeignKey(
             'idx-partido-equipo_visitante_id',
-            'equipo'
+            'partido'
         );
 
         $this->dropIndex(
             'fk-partido-equipo_visitante_id',
-            'equipo'
+            'partido'
         );
 
         $this->dropTable('partido');

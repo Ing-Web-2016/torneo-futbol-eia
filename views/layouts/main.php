@@ -4,8 +4,10 @@
 /* @var $content string */
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
+use yii\bootstrap\Carousel;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
@@ -23,30 +25,38 @@ AppAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
-
-<div class="wrap">
-    <?php
+<div class="row">
+<?php
     NavBar::begin([
-        'brandLabel' => 'My Company',
-        'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
+            'class' => 'navbar navbar-fixed-top',
+            'id'=>'navegador',
         ],
     ]);
     echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
+        'options' => ['class'=>'nav nav-justified'],
+        'items' => [ 
+            ['label' => Yii::t('app', 'Inicio'), 'url' => ['/site/index'], 'linkOptions'=>['id'=>'letra']], 
+            ['label' => Yii::t('app', 'Jugadores'), 'url' => ['/jugador/index'], 'linkOptions'=>['id'=>'letra']],
+            ['label' => Yii::t('app', 'Arbitros'), 'url' => ['/arbitro/index'], 'linkOptions'=>['id'=>'letra']],
+            ['label' => Yii::t('app', 'Equipos'), 'url' => ['/equipo/index'], 'linkOptions'=>['id'=>'letra']],
+            ['label' => Yii::t('app', 'Partidos'), 'url' => ['/partido/index'], 'linkOptions'=>['id'=>'letra']],
+            [
+                'label' => Yii::t('app', 'Language'),
+                'linkOptions'=>['id'=>'letra'],
+                'items' => [
+                    ['label' => 'English', 'url' => Url::to(['/site/index', 'language' => 'en-US'])],
+                    ['label' => 'Español', 'url' => Url::to(['/site/index', 'language' => 'es-ES'])]
+                ]
+            ],
             Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
+                ['label' => Yii::t('app', 'Login'), 'url' => ['/site/login'], 'linkOptions'=>['id'=>'letra']]
             ) : (
                 '<li>'
-                . Html::beginForm(['/site/logout'], 'post', ['class' => 'navbar-form'])
+                . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link']
+                    Yii::t('app', 'Logout') . ' (' . Yii::$app->user->identity->username . ')',
+                    ['class' => 'btn btn-link', 'id' => 'letra']
                 )
                 . Html::endForm()
                 . '</li>'
@@ -55,7 +65,30 @@ AppAsset::register($this);
     ]);
     NavBar::end();
     ?>
+    </div>
+<div class="wrap">
+    <div class="row" id="cabezote">
+        <div class="col-md-offset-2 col-md-8">
+            <?php
+            echo Carousel::widget([
+            'items' => [
+                '<img id="imagen" src="http://localhost/torneo-futbol-eia/views/layouts/img/eia1.jpeg"/>',
+                '<img id="imagen" src="http://localhost/torneo-futbol-eia/views/layouts/img/eia2.jpeg"/>',
+                '<img id="imagen" src="http://localhost/torneo-futbol-eia/views/layouts/img/eia3.jpeg"/>',
+                '<img id="imagen" src="http://localhost/torneo-futbol-eia/views/layouts/img/eia4.jpeg"/>',
+                '<img id="imagen" src="http://localhost/torneo-futbol-eia/views/layouts/img/eia5.jpeg"/>',
+                '<img id="imagen" src="http://localhost/torneo-futbol-eia/views/layouts/img/eia6.jpeg"/>',
+            ],
+            'options'=>[
+                'icon'=>('GLYPHICON_CIRCLE_ARROW_LEFT'),
+                'icon'=>('GLYPHICON_CIRCLE_ARROW_RIGHT'),
+            ],
+            ]);
+            ?>
+        </div>
+    </div>
 
+    
     <div class="container">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
@@ -65,11 +98,7 @@ AppAsset::register($this);
 </div>
 
 <footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-
-        <p class="pull-right"><?= Yii::powered() ?></p>
-    </div>
+    <img src="http://localhost/torneo-futbol-eia/views/layouts/img/pie.jpg" class="img-responsive center-block" id="pie">
 </footer>
 
 <?php $this->endBody() ?>

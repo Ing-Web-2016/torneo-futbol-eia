@@ -21,6 +21,8 @@ class m160524_045809_create_gol extends Migration
             'minuto' => $this->string()->notNull(),
             'partido_id' => $this->integer()->notNull(),
             'jugador_id' => $this->integer()->notNull(),
+            'created_at' => $this->dateTime()->notNull(),
+            'updated_at' => $this->dateTime(),
         ]);
 
         // creates index for column `partido_id`
