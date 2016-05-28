@@ -5,6 +5,7 @@ use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
 use app\models\Jugador;
 use app\models\Persona;
+use app\models\Color;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Equipo */
@@ -22,7 +23,7 @@ use app\models\Persona;
             'id',
             function($model, $defaultValue) {
                 $persona = Persona::find()->where(['id'=>$model['id']])->one();
-                return $persona['nombre'].' '.$persona['apellido'];
+                return $persona['fullname'];
             }
         ),
         ['prompt'=>Yii::t('app', 'Elegir Capitán:')]

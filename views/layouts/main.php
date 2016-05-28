@@ -42,6 +42,16 @@ AppAsset::register($this);
             ['label' => Yii::t('app', 'Equipos'), 'url' => ['/equipo/index'], 'linkOptions'=>['id'=>'letra']],
             ['label' => Yii::t('app', 'Partidos'), 'url' => ['/partido/index'], 'linkOptions'=>['id'=>'letra']],
             [
+                'label' => Yii::t('app', 'Más'),
+                'linkOptions'=>['id'=>'letra'],
+                'items' => [
+                    ['label' => Yii::t('app', 'Personas'), 'url' => ['/persona/index']],
+                    ['label' => Yii::t('app', 'Goles'), 'url' => ['/gol/index']],
+                    ['label' => Yii::t('app', 'Tarjetas'), 'url' => ['/tarjeta/index']],
+                    ['label' => Yii::t('app', 'Colores'), 'url' => ['/color/index']]
+                ]
+            ],
+            [
                 'label' => Yii::t('app', 'Language'),
                 'linkOptions'=>['id'=>'letra'],
                 'items' => [

@@ -17,7 +17,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Arbitro'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?php
+            if (\Yii::$app->user->can('adminArbitro')) {
+                Html::a(Yii::t('app', 'Create Arbitro'), ['create'], ['class' => 'btn btn-success']);
+            }
+        ?>
     </p>
 <?php Pjax::begin(); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -33,7 +37,14 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'created_at',
             // 'updated_at',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'visibleButtons' => [
+                    'view' => true,
+                    'update' => \Yii::$app->user->can('adminArbitro'),
+                    'delete' => \Yii::$app->user->can('adminArbitro')
+                ]
+            ],
         ],
     ]); ?>
 <?php Pjax::end(); ?></div>

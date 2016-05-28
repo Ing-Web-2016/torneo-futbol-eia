@@ -16,7 +16,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Tarjeta'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?php
+            if (\Yii::$app->user->can('adminTarjeta')) {
+                Html::a(Yii::t('app', 'Create Tarjeta'), ['create'], ['class' => 'btn btn-success']);
+            }
+        ?>
     </p>
 <?php Pjax::begin(); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -31,7 +35,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'causa',
             // 'minuto',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'visibleButtons' => [
+                    'view' => true,
+                    'update' => \Yii::$app->user->can('adminTarjeta'),
+                    'delete' => \Yii::$app->user->can('adminTarjeta')
+                ]
+            ],
         ],
     ]); ?>
 <?php Pjax::end(); ?></div>

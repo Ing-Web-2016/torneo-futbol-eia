@@ -63,6 +63,9 @@ class TarjetaController extends Controller
      */
     public function actionCreate()
     {
+        if (!\Yii::$app->user->can('adminTarjeta')) {
+            return $this->goHome();
+        }
         $model = new Tarjeta();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -82,6 +85,9 @@ class TarjetaController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (!\Yii::$app->user->can('adminTarjeta')) {
+            return $this->goHome();
+        }
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -101,6 +107,9 @@ class TarjetaController extends Controller
      */
     public function actionDelete($id)
     {
+        if (!\Yii::$app->user->can('adminTarjeta')) {
+            return $this->goHome();
+        }
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

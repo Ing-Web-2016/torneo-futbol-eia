@@ -23,31 +23,17 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'user', 'admin'],
+                'only' => ['logout', 'login'],
                 'rules' => [
                     [
-                        'actions' => ['logout', 'admin'],
+                        'actions' => ['logout'],
                         'allow' => true,
                         'roles' => ['@'],
-                        'matchCallback' => function ($rule, $action) {
-                            return User::isUserAdmin(Yii::$app->user->identity->id);
-                        },
                     ],
                     [
-                        'actions' => ['logout', 'jugador'],
+                        'actions' => ['login'],
                         'allow' => true,
-                        'roles' => ['@'],
-                        'matchCallback' => function ($rule, $action) {
-                            return User::isUserJugador(Yii::$app->user->identity->id);
-                        },
-                    ],
-                    [
-                        'actions' => ['logout', 'capitan', 'jugador'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                        'matchCallback' => function ($rule, $action) {
-                            return User::isUserCapitan(Yii::$app->user->identity->id);
-                        },
+                        'roles' => ['?'],
                     ],
                 ],
             ],
@@ -87,23 +73,11 @@ class SiteController extends Controller
     public function actionLogin()
     {
         if (!\Yii::$app->user->isGuest) {
-            if (User::isUserAdmin(Yii::$app->user->identity->id)){
-                return $this->redirect(["site/admin"]);
-            } else if (User::isUserCapitan(Yii::$app->user->identity->id)){
-                return $this->redirect(["site/capitan"]);
-            } else {
-                return $this->redirect(["site/jugador"]);
-            }
+            return $this->redirect(["site/index"]);
         }
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            if (User::isUserAdmin(Yii::$app->user->identity->id)) {
-                return $this->redirect(["site/admin"]);
-            } else if (User::isUserCapitan(Yii::$app->user->identity->id)) {
-                return $this->redirect(["site/capitan"]);
-            } else {
-                return $this->redirect(["site/jugador"]);
-            }
+            return $this->redirect(["site/index"]);
         } else {
             return $this->render('login', [
             'model' => $model,
@@ -245,13 +219,63 @@ class SiteController extends Controller
   return $this->render("register", ["model" => $model, "msg" => $msg]);
  }
 
-    public function actionJugador(){
-        return $this->render("jugador");
-    }
-    public function actionCapitan(){
-        return $this->render("capitan");
-    }
-    public function actionAdmin(){
-        return $this->render("admin");
+    public function actionInit()
+    {
+        $auth = Yii::$app->authManager;
+
+        $adminPersona = $auth->createPermission('adminPersona');
+        $adminPersona->description = 'Administrar las personas';
+        $auth->add($adminPersona);
+
+        $adminArbitro = $auth->createPermission('adminArbitro');
+        $adminArbitro->description = 'Administrar los arbitros';
+        $auth->add($adminArbitro);
+
+        $adminPartido = $auth->createPermission('adminPartido');
+        $adminPartido->description = 'Administrar los partidos';
+        $auth->add($adminPartido);
+
+        $adminTarjeta = $auth->createPermission('adminTarjeta');
+        $adminTarjeta->description = 'Administrar las tarjetas';
+        $auth->add($adminTarjeta);
+
+        $adminGol = $auth->createPermission('adminGol');
+        $adminGol->description = 'Administrar los goles';
+        $auth->add($adminGol);
+
+        $adminEquipo = $auth->createPermission('adminEquipo');
+        $adminEquipo->description = 'Administrar los equipos';
+        $auth->add($adminEquipo);
+
+        $adminJugador = $auth->createPermission('adminJugador');
+        $adminJugador->description = 'Administrar los jugadores';
+        $auth->add($adminJugador);
+
+        $adminColor = $auth->createPermission('adminColor');
+        $adminColor->description = 'Administrar los colores';
+        $auth->add($adminColor);
+
+        $jugador = $auth->createRole('jugador');
+        $auth->add($jugador);
+        $auth->addChild($jugador, $adminColor);
+
+        $capitan = $auth->createRole('capitan');
+        $auth->add($capitan);
+        $auth->addChild($capitan, $adminEquipo);
+        $auth->addChild($capitan, $jugador);
+
+        $admin = $auth->createRole('admin');
+        $auth->add($admin);
+        $auth->addChild($admin, $adminPersona);
+        $auth->addChild($admin, $adminArbitro);
+        $auth->addChild($admin, $adminPartido);
+        $auth->addChild($admin, $adminTarjeta);
+        $auth->addChild($admin, $adminGol);
+        $auth->addChild($admin, $adminJugador);
+        $auth->addChild($admin, $capitan);
+
+        $auth->assign($jugador, 7);
+        $auth->assign($capitan, 6);
+        $auth->assign($admin, 5);
     }
 }

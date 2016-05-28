@@ -3,8 +3,11 @@
 namespace app\controllers;
 
 use Yii;
+use yii\base\Model;
 use app\models\Equipo;
 use app\models\EquipoSearch;
+use app\models\EquipoColor;
+use app\models\JugadorEquipo;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -63,13 +66,20 @@ class EquipoController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Equipo();
+        if (!\Yii::$app->user->can('adminEquipo')) {
+            return $this->goHome();
+        }
+        $equipo = new Equipo();
+        $countJugadores = count(Yii::$app->request->post('Jugador', []));
+        $countColores = count(Yii::$app->request->post('Color', []));
+        $jugadores = [new JugadorEquipo()];
+        $colores = [new EquipoColor()];
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($equipo->load(Yii::$app->request->post()) && $equipo->save()) {
+            return $this->redirect(['view', 'id' => $equipo->id]);
         } else {
             return $this->render('create', [
-                'model' => $model,
+                'model' => $equipo,
             ]);
         }
     }
@@ -82,6 +92,9 @@ class EquipoController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (!\Yii::$app->user->can('adminEquipo')) {
+            return $this->goHome();
+        }
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -101,6 +114,9 @@ class EquipoController extends Controller
      */
     public function actionDelete($id)
     {
+        if (!\Yii::$app->user->can('adminEquipo')) {
+            return $this->goHome();
+        }
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

@@ -16,7 +16,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Gol'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?php
+            if (\Yii::$app->user->can('adminGol')) {
+                Html::a(Yii::t('app', 'Create Gol'), ['create'], ['class' => 'btn btn-success']);
+            }
+        ?>
     </p>
 <?php Pjax::begin(); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -29,7 +33,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'partido_id',
             'jugador_id',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'visibleButtons' => [
+                    'view' => true,
+                    'update' => \Yii::$app->user->can('adminGol'),
+                    'delete' => \Yii::$app->user->can('adminGol')
+                ]
+            ],
         ],
     ]); ?>
 <?php Pjax::end(); ?></div>

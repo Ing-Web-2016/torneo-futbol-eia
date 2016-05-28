@@ -63,6 +63,9 @@ class ArbitroController extends Controller
      */
     public function actionCreate()
     {
+        if (!\Yii::$app->user->can('adminArbitro')) {
+            return $this->goHome();
+        }
         $model = new Arbitro();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -82,6 +85,9 @@ class ArbitroController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (!\Yii::$app->user->can('adminArbitro')) {
+            return $this->goHome();
+        }
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -101,6 +107,9 @@ class ArbitroController extends Controller
      */
     public function actionDelete($id)
     {
+        if (!\Yii::$app->user->can('adminArbitro')) {
+            return $this->goHome();
+        }
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
